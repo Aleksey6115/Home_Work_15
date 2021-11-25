@@ -1,0 +1,225 @@
+﻿<Window x:Class="Home_Work_15.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+        xmlns:local="clr-namespace:Home_Work_15"
+        mc:Ignorable="d"
+        Title="{Binding TxtCurrentUser, UpdateSourceTrigger=PropertyChanged}"
+        Height="450" Width="1000" MinHeight="450" MinWidth="1000">
+
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding SelectUserCommand}"/>
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+
+    <Grid>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="20"/>
+            <RowDefinition Height="50*"/>
+            <RowDefinition Height="200"/>
+        </Grid.RowDefinitions>
+
+        <Menu Grid.Row="0">
+            <MenuItem Header="Файл">
+                <MenuItem Header="Открыть файл"
+                          Command="{Binding OpenFileCommand}"/>
+                <MenuItem Header="Сохранить файл"
+                          Command="{Binding SaveFileCommand}"/>
+                <MenuItem Header="Сгенерировать БД"
+                          Command="{Binding GeneratorBaseCommand}"/>
+            </MenuItem>
+
+            <MenuItem Header="Редактирование">
+                <MenuItem Header="Добавить клиента"
+                          Command="{Binding AddClientCommand}"/>
+                <MenuItem Header="Удалить текущего клиента"
+                          Command="{Binding DeleteClientCommand}"
+                          CommandParameter="{Binding SelectedClient}"/>
+            </MenuItem>
+
+            <MenuItem Header="Сменить пользователя" Command="{Binding SelectUserCommand}"/>
+            <MenuItem Header="История" Command="{Binding OpenHistoryCommand}"/>
+            <MenuItem Header="Помощь" Command="{Binding OpenHelpCommand}"/>
+
+        </Menu>
+
+        <DataGrid Grid.Row="1"
+                  CanUserAddRows="False"
+                  AutoGenerateColumns="False"
+                  ItemsSource="{Binding ClientsList}"
+                  SelectedItem="{Binding SelectedClient}"
+>
+
+            <DataGrid.Columns>
+
+                <DataGridTextColumn
+                    Header="Статус"
+                    IsReadOnly="True"
+                    Width="20*"
+                    Binding="{Binding Status}" />
+
+                <DataGridTextColumn 
+                    Header="Имя"
+                    Width="20*"
+                    Binding="{Binding FirstName}"
+                    IsReadOnly="True"/>
+
+                <DataGridTextColumn
+                    Header="Фамилия"
+                    Width="20*"
+                    Binding="{Binding LastName}"
+                    IsReadOnly="True"/>
+
+                <DataGridTextColumn
+                    Header="Возраст"
+                    Width="20*"
+                    Binding="{Binding Age}"
+                    IsReadOnly="True"/>
+
+                <DataGridTextColumn 
+                    Header="Депозит"
+                    Width="20*"
+                    IsReadOnly="True"
+                    Binding="{Binding DepositAccount, StringFormat=0 $}"/>
+
+                <DataGridTextColumn
+                    Header="Счёт"
+                    IsReadOnly="True"
+                    Width="20*"
+                    Binding="{Binding Account, StringFormat=0 $}"/>
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <Grid Grid.Row="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="50*"/>
+                <ColumnDefinition Width="50*"/>
+            </Grid.ColumnDefinitions>
+
+            <StackPanel Margin="3" Grid.Column="0" HorizontalAlignment="Center">
+
+                <TextBlock Text="Депозит" FontSize="20" HorizontalAlignment="Center"/>
+
+                <WrapPanel Orientation="Horizontal">
+                    <TextBlock Text="Процентная ставка депозита: " Margin="3,0,0,0"/>
+                    <TextBlock Text="{Binding SelectedClient.DepositRate, StringFormat=0 %}" 
+                               Margin="1"/>
+                    <TextBlock Text="Через год будет накоплено:" Margin="40,0,0,0"/>
+                    <TextBlock Text="{Binding SelectedClient.AccumulatedDeposit, 
+                        UpdateSourceTrigger=PropertyChanged, StringFormat=0.## $}" 
+                               Margin="1"/>
+                </WrapPanel>
+
+                <WrapPanel Orientation="Horizontal">
+                    <TextBox Width="200" 
+                             Margin="3,20,0,0"
+                             Text="{Binding TxtReplenishDeposit, UpdateSourceTrigger=PropertyChanged}"/>
+                    <Button Content="Пополнить депозит"
+                            Margin="20,20,0,0" 
+                            Width="200"
+                            Command="{Binding ReplenishDepositCommand}"/>
+                </WrapPanel>
+
+                <WrapPanel Orientation="Horizontal">
+                    <TextBox Width="200" 
+                             Margin="3,5,0,0"
+                             Text="{Binding TxtTransferToAccount, UpdateSourceTrigger=PropertyChanged}"/>
+                    <Button Content="Перевести на счёт" 
+                            Margin="20,5,0,0" 
+                            Width="200"
+                            Command="{Binding TransferToAccountCommand}"/>
+                </WrapPanel>
+
+                <WrapPanel Orientation="Horizontal">
+                    <Button Content="Открыть депозит" 
+                            Margin="3,5,0,0" 
+                            Width="200"
+                            Command="{Binding OpenDepositAccountCommand}"
+                            CommandParameter="{Binding SelectedClient}"/>
+
+                    <Button Content="Закрыть депозит" 
+                            Margin="20,5,0,0" 
+                            Width="200"
+                            Command="{Binding CloseDepositAccountComand}"
+                            CommandParameter="{Binding SelectedClient}"/>
+                </WrapPanel>
+
+            </StackPanel>
+
+            <StackPanel Margin="3" Grid.Column="1" HorizontalAlignment="Center">
+
+                <TextBlock Text="Счёт" FontSize="20" HorizontalAlignment="Center"/>
+
+                <WrapPanel Orientation="Horizontal">
+                    <TextBlock Text="Доступная сумма:" Margin="1"/>
+                    <TextBlock Text="{Binding SelectedClient.Account, StringFormat=0 $,
+                        UpdateSourceTrigger=PropertyChanged}" 
+                               Margin="1"/>
+                </WrapPanel>
+
+                <WrapPanel Orientation="Horizontal">
+                    <TextBox Width="200"
+                             Margin="3,20,0,0"
+                             Text="{Binding TxtReplenishAccount, UpdateSourceTrigger=PropertyChanged}"/>
+
+                    <Button Content="Пополнить счёт" 
+                            Margin="20,20,0,0" 
+                            Width="200"
+                            Command="{Binding ReplenishAccountCommand}"/>
+                </WrapPanel>
+
+                <WrapPanel Orientation="Horizontal">
+                    <TextBox Width="200"
+                             Margin="3,5,0,0"
+                             Text="{Binding TxtWithdrawAccount, UpdateSourceTrigger=PropertyChanged}"/>
+
+                    <Button Content="Снять средства со счёта" 
+                            Margin="20,5,0,0" 
+                            Width="200" 
+                            Command="{Binding WithdrawAccountCommand}"/>
+                </WrapPanel>
+
+                <WrapPanel Orientation="Horizontal">
+                    <TextBox Width="200" 
+                             Margin="3,5,0,0"
+                             Text="{Binding TxtTransferToDeposit, UpdateSourceTrigger=PropertyChanged}"/>
+
+                    <Button Content="Перевести на депозит" 
+                            Margin="20,5,0,0"
+                            Width="200"
+                            Command="{Binding TransferToDepositCommand}"/>
+                </WrapPanel>
+
+                <WrapPanel Orientation="Horizontal">
+                    <TextBox Width="200" 
+                             Margin="3,5,0,0"
+                             Text="{Binding TxtTransferToClient, UpdateSourceTrigger=PropertyChanged}"/>
+                    <Button Content="Перевести средства клиенту" 
+                            Margin="20,5,0,0" 
+                            Width="200" 
+                            Command="{Binding TransferToClientCommand}"/>
+                </WrapPanel>
+
+                <WrapPanel Orientation="Horizontal">
+                    <Button Content="Открыть счёт"
+                            Margin="3,5,0,0"
+                            Width="200"
+                            Command="{Binding OpenAccountCommand}"
+                            CommandParameter="{Binding SelectedClient}"/>
+
+                    <Button Content="Закрыть счёт" 
+                            Margin="20,5,0,0" 
+                            Width="200"
+                            Command="{Binding CloseAccountCommand}"
+                            CommandParameter="{Binding SelectedClient}"/>
+                </WrapPanel>
+
+            </StackPanel>
+
+        </Grid>
+    </Grid>
+</Window>
