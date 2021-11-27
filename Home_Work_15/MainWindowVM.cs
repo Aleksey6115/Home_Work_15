@@ -5,14 +5,16 @@ using System.Windows;
 using System.Collections.ObjectModel;
 
 #region Библиотеки классов
-using ClientLibrary;
+using MVVMWpfLibraryBase;
+using ClientLibrary.Model;
 using ClientLibrary.Service;
-using UsersLibrary;
+using ClientLibrary;
+using FileLibrary;
 using HistoryLibrary;
+using UsersLibrary;
 using DialogLibrary.DialogService;
 using DialogLibrary;
-using FileLibrary;
-using MVVMWpfLibraryBase;
+
 #endregion
 
 namespace Home_Work_15
@@ -355,7 +357,6 @@ namespace Home_Work_15
                             if (dialogAuthorizationService.OpenAuthorizationDialog() == true)
                             {
                                 currentUser = dialogAuthorizationService.SelectedUser;
-                                TxtCurrentUser = currentUser.Name;
                             }
                         }
                         catch
@@ -364,6 +365,7 @@ namespace Home_Work_15
                         }
 
                         if (currentUser == null) MessageBox.Show("Нужно выбрать пользователя");
+                        else TxtCurrentUser = currentUser.Name;
                     }
                 }));
             }

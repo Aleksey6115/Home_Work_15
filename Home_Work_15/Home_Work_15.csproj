@@ -12,24 +12,12 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Reference Include="ClientLibrary">
-      <HintPath>D:\Учёба\ДЗ\ДЗ_15 Библиотеки\ClientLibrary\ClientLibrary\bin\Debug\netcoreapp3.1\ClientLibrary.dll</HintPath>
-    </Reference>
-    <Reference Include="DialogLibrary">
-      <HintPath>D:\Учёба\ДЗ\ДЗ_15 Библиотеки\DialogLibrary\DialogLibrary\bin\Debug\netcoreapp3.1\DialogLibrary.dll</HintPath>
-    </Reference>
-    <Reference Include="FileLibrary">
-      <HintPath>D:\Учёба\ДЗ\ДЗ_15 Библиотеки\FileLibrary\FileLibrary\bin\Debug\netcoreapp3.1\FileLibrary.dll</HintPath>
-    </Reference>
-    <Reference Include="HistoryLibrary">
-      <HintPath>D:\Учёба\ДЗ\ДЗ_15 Библиотеки\HistoryLibrary\HistoryLibrary\bin\Debug\netcoreapp3.1\HistoryLibrary.dll</HintPath>
-    </Reference>
-    <Reference Include="MVVMWpfLibraryBase">
-      <HintPath>D:\Учёба\ДЗ\ДЗ_15 Библиотеки\MVVMWpfLibraryBase\MVVMWpfLibraryBase\bin\Debug\netcoreapp3.1\MVVMWpfLibraryBase.dll</HintPath>
-    </Reference>
-    <Reference Include="UsersLibrary">
-      <HintPath>D:\Учёба\ДЗ\ДЗ_15 Библиотеки\UsersLibrary\UsersLibrary\bin\Debug\netcoreapp3.1\UsersLibrary.dll</HintPath>
-    </Reference>
+    <ProjectReference Include="..\ClientLibrary\ClientLibrary.csproj" />
+    <ProjectReference Include="..\DialogLibrary\DialogLibrary.csproj" />
+    <ProjectReference Include="..\FileLibrary\FileLibrary.csproj" />
+    <ProjectReference Include="..\HistoryLibrary\HistoryLibrary.csproj" />
+    <ProjectReference Include="..\MVVMWpfLibraryBase\MVVMWpfLibraryBase.csproj" />
+    <ProjectReference Include="..\UsersLibrary\UsersLibrary.csproj" />
   </ItemGroup>
 
 </Project>

@@ -1,0 +1,39 @@
+﻿<Window x:Class="DialogLibrary.DialogWindows.HistoryWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:DialogLibrary.DialogWindows"
+        mc:Ignorable="d"
+        Title="HistoryWindow" Height="450" MinHeight="450" MaxHeight="450"
+        Width="1200" MinWidth="1200" MaxWidth="1200">
+    
+    <Grid>
+
+        <ListView x:Name="historyList">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="Дата" 
+                                    DisplayMemberBinding="{Binding Date}"
+                                    Width="200"/>
+                    <GridViewColumn Header="Операцию совершил" 
+                                    DisplayMemberBinding="{Binding Author}"
+                                    Width="200"/>
+                    <GridViewColumn Header="Имя клиента" 
+                                    DisplayMemberBinding="{Binding ClientName}"
+                                    Width="200"/>
+                    <GridViewColumn Header="Статус клиента"
+                                    DisplayMemberBinding="{Binding ClientStatus}"
+                                    Width="200"/>
+                    <GridViewColumn Header="Операция"
+                                    DisplayMemberBinding="{Binding Operation}"
+                                    Width="200"/>
+                    <GridViewColumn Header="Сумма операции"
+                                    DisplayMemberBinding="{Binding TransactionAmount, StringFormat=0 $}"
+                                    Width="200"/>
+                </GridView>
+            </ListView.View>
+        </ListView>
+
+    </Grid>
+</Window>
